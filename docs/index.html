@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Zoea Megalopa Demo</title>
+        <link href="./style.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.roboflow.com/0.2.25/roboflow.js"></script>
+    </head>
+
+    <body>
+        <h1>Zoea Megalopa Demo</h1>
+        <p>
+            By Pisit Arsirawichai
+        </p>
+        <img
+            src="https://uploads-ssl.webflow.com/5f6bc60e665f54545a1e52a5/63d3f236a6f0dae14cdf0063_drag-image-here.png"
+            id="picture"
+            style="display: none"
+        />
+        <div id="example_demo">
+            <video muted autoplay loop id="video">
+            <source
+                src="https://uploads-ssl.webflow.com/5f6bc60e665f54545a1e52a5/63d15cb160518f7f9c59a892_Sequence 01-transcode.mp4"
+                type="video/mp4"
+                id="video_source"
+            />
+            </video>
+        </div>
+        <canvas width="640" height="480" id="picture_canvas"></canvas>
+        <canvas width="640" height="480" id="video_canvas"></canvas>
+
+        <div id="prechosen_images_parent">
+            <div id="prechosen_images">
+            <img
+                src="/images/label_6_mp4-0125.jpg"
+                id="picture_1"
+                onclick="imageInference(this)"
+            />
+            <img
+                src="/images/label_6_mp4-0198.jpg"
+                id="picture_2"
+                onclick="imageInference(this)"
+            />
+            <img
+                src="/images/label_10_mp4-0217.jpg"
+                id="picture_3"
+                onclick="imageInference(this)"
+            />
+            <img
+                src="/images/label_10_mp4-0330.jpg"
+                id="picture_4"
+                onclick="imageInference(this)"
+            />
+            </div>
+        </div>
+        <div>
+            <div id="results" style="font: 2em sans-serif;" class="results"></div>
+        </div>
+
+        <!-- <a href="#" id="webcam-predict" class="hero_button_secondary"
+            >Predict Using Webcam</a
+        > -->
+        <a href="#" id="image-predict" class="hero_button_secondary"
+            >Image Upload</a
+        >
+
+        <select id="model-select">
+        </select>
+        <script src="script.js"></script>
+    </body>
+</html>
