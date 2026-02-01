@@ -209,7 +209,10 @@ function makeDemoPredictions(seedText) {
 async function apiRequest(imageBase64) {
   if (DEMO_MODE) {
     // no network, no keys
-    const preds = makeDemoPredictions(imageBase64.slice(0, 120));
+    // Use robust seed from image content: combine head + tail of base64
+    // (avoids identical prefix "data:image/jpeg;base64," which makes all seeds identical)
+    const seed = imageBase64.slice(0, 200) + "|" + imageBase64.slice(-200);
+    const preds = makeDemoPredictions(seed);
     countAndVisualizePredictions(preds);
     return preds;
   }
@@ -225,10 +228,15 @@ async function apiRequest(imageBase64) {
     DETECT_API_KEY +
     "&confidence=30";
 
+  // Extract raw base64 from data URL (remove "data:image/jpeg;base64," prefix)
+  const base64String = imageBase64.includes(",") 
+    ? imageBase64.split(",")[1] 
+    : imageBase64;
+
   return fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: imageBase64,
+    body: "imageToUpload=" + base64String,
     redirect: "follow",
   })
     .then((response) => response.json())
